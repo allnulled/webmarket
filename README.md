@@ -25,32 +25,49 @@ const wm = await Webmarket.open();
 
 The `window.Wemarket` global class has some methods:
 
- - `static create(...args)`: creates an instance.
+ - `static create(dbName)`: creates an instance.
+    - Receives `String:dbName`, the name of the database.
     - Returns `Webmarket` type.
- - `static open(...args)`: creates and initializes an instance.
+ - `static open(dbName)`: creates and initializes an instance.
+    - Receives `String:dbName`, the name of the database.
     - Returns `Promise<Webmarket>` type.
- - `static init(...args)`
+ - `static init(dbName)`
+    - Receives `String:dbName`, the name of the database.
     - Return `Promise<Webmarket>` type, and returns `wm.init()`.
  - `static listDatabases()`
+    - Receives nothing.
     - Returns the list of names of databases found.
  - `constructor(dbName = "webmarket")`
+    - Receives `String:dbName`, the name of the database.
     - Creates the object only. You still need to call to `wm.init()`.
  - `async init()`
+    - Receives nothing. Uses the `this.dbName` set on the constructor.
     - Ensures the current store and returns an internal IDB object.
  - `async changeDatabase(dbName)`
+    - Receives `String:dbName`, the name of the database.
     - Changes the name of the database, and calls `wm.init()` again.
  - `async select()`
+    - Receives nothing. Filters are complicated in IDB.
     - Returns a list of all the items.
  - `async selectById(id)`
+    - Receives `Integer:id`, the `id` of the row to select.
     - Returns the item by id, if found.
  - `async insertOne(data)`
+    - Receives `Object:item`, the `item` to insert.
     - Inserts one item.
+    - Returns the inserted `id`.
  - `async insertMany(items)`
+    - Receives `Array<Object>:items`, the `items` to insert.
     - Inserts a list of items.
+    - Returns the inserted `id`s in a list.
  - `async updateOne(id, data)`
+    - Receives `Integer:id`, the `id` of the row to update.
     - Updates one item.
+    - Returns the updated `id`.
  - `async deleteOne(id)`
+    - Receives `Integer:id`, the `id` of the row to delete.
     - Deletes one item.
+    - Returns nothing.
 
 ## How it better works?
 
@@ -81,7 +98,7 @@ The idea is to only alter the `database` name.
 
 ```js
 // Creamos una instancia de Webmarket
-const wm = await Webmarket.open("testDB", "testStore");
+const wm = await Webmarket.open("testDB");
 
 // Insertamos un solo dato
 const id = await wm.insertOne({ name: "Item 1", description: "First item" });
