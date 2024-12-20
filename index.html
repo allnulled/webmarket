@@ -17,9 +17,10 @@
         await Webmarket.deleteDatabase("testDB");
 
         // Creamos una instancia de Webmarket
-        const wm = await Webmarket.open("testDB", "testStore");
+        const wm = await Webmarket.open("testDB");
 
         // Insertamos un solo dato
+        await wm.insertOne({ name: "Item 0", description: "Zero item" });
         const id = await wm.insertOne({ name: "Item 1", description: "First item" });
         console.log(`Inserted item with ID: ${id}`);
 
@@ -35,7 +36,7 @@
         console.log("All items:", items);
 
         // Actualizamos un elemento
-        await wm.updateOne(id, { name: "Updated Item 1", description: "Updated description" });
+        console.log("Update", await wm.updateOne(id, { name: "Updated Item 1", description: "Updated description" }));
         console.log("Updated item with ID:", id);
 
         // Recuperamos el elemento actualizado
@@ -43,7 +44,7 @@
         console.log("Updated item:", updatedItem);
 
         // Eliminamos un elemento
-        await wm.deleteOne(id);
+        console.log("Delete", await wm.deleteOne(id));
         console.log("Deleted item with ID:", id);
 
         // Recuperamos todos los elementos después de la eliminación

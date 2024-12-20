@@ -64,13 +64,13 @@ Only 1 directory and N files. Only 1 database and N registries.
 
 ### Steps
 
-1. You `open` database and store. `wm = Webmarket.open()`
-2. You operate:
+1. You `open` database and store. `wm = Webmarket.open(dbName)`
+2. You operate the CRUD like so:
    1. `all = await wm.select()`
    1. `one = await wm.selectById(1)`
    1. `id = await wm.insertOne({})`
    1. `ids = await wm.insertMany([{}, {}, {}])`
-   1. `await wm.updateOne(1, {})`
+   1. `id = await wm.updateOne(1, {})`
    1. `await wm.deleteOne(1)`
 
 By default, you work on `"webmarket"` database, and `webstore` store.
