@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webmarket Test</title>
+</head>
+<body>
+  <h1>Test Webmarket</h1>
+  <script src="webmarket.js"></script>
+  <script>
+    // Probamos la creación e interacción con la base de datos.
+    async function testWebmarket() {
+      try {
+
+        // Eliminamos instancias previas
+        await Webmarket.deleteDatabase("testDB");
+
+        // Creamos una instancia de Webmarket
+        const wm = await Webmarket.open("testDB", "testStore");
+
+        // Insertamos un solo dato
+        const id = await wm.insertOne({ name: "Item 1", description: "First item" });
+        console.log(`Inserted item with ID: ${id}`);
+
+        // Insertamos varios datos
+        const ids = await wm.insertMany([
+          { name: "Item 2", description: "Second item" },
+          { name: "Item 3", description: "Third item" }
+        ]);
+        console.log(`Inserted items with IDs: ${ids.join(", ")}`);
+
+        // Recuperamos todos los elementos
+        const items = await wm.select();
+        console.log("All items:", items);
+
+        // Actualizamos un elemento
+        await wm.updateOne(id, { name: "Updated Item 1", description: "Updated description" });
+        console.log("Updated item with ID:", id);
+
+        // Recuperamos el elemento actualizado
+        const updatedItem = await wm.selectById(id);
+        console.log("Updated item:", updatedItem);
+
+        // Eliminamos un elemento
+        await wm.deleteOne(id);
+        console.log("Deleted item with ID:", id);
+
+        // Recuperamos todos los elementos después de la eliminación
+        const remainingItems = await wm.select();
+        console.log("Remaining items:", remainingItems);
+
+      } catch (error) {
+        console.error("Error during Webmarket operations:", error);
+      }
+    }
+
+    // Ejecutar el test
+    testWebmarket();
+  </script>
+</body>
+</html>

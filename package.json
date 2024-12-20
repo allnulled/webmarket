@@ -1,0 +1,12 @@
+{
+  "name": "@allnulled/webmarket",
+  "version": "1.0.0",
+  "description": "Wrapper for IndexedDB.",
+  "main": "webmarket.js",
+  "scripts": {
+    "serve": "npx http-server -c-1 . -o"
+  },
+  "keywords": ["indexeddb", "wrapper", "idb", "database", "browser", "db"],
+  "author": "allnulled",
+  "license": "WTFPL"
+}
